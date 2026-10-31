@@ -40,9 +40,36 @@ Ratuber 是一个用 C++ 编写的 Live2D 桌面宠物聊天机器人。它以�
 
 仓库只包含源码。运行前需要自行准备：
 
-1. **Live2D Cubism SDK for Native**：从 Live2D 官网下载 `CubismSdkForNative-5-r.5`，解压到仓库根目录（与 `CMakeLists.txt` 同级）。
-2. **Mao 示例模型**：从 Live2D 官网下载 Mao 示例模型，放到 `Ratuber/assets/Mao/`。
-3. **CosyVoice**：把 CosyVoice 项目放到 `Ratuber/assets/CosyVoice/`，并下载 `CosyVoice2-0.5B` 预训练模型到 `Ratuber/assets/CosyVoice/pretrained_models/CosyVoice2-0.5B/`。
+以下路径都相对于仓库根目录（也就是 `CMakeLists.txt` 所在的目录）。
+
+1. **Live2D Cubism SDK for Native**
+   - 下载地址：<https://www.live2d.com/en/sdk/download/native/>（下载前需要阅读并同意 Live2D 的许可协议）。
+   - 本项目基于 `5-r.5` 版本开发。把下载得到的压缩包解压到仓库根目录，使目录名为 `CubismSdkForNative-5-r.5`，与 `CMakeLists.txt` 同级。官网提供的是最新版，如果版本不同，目录名和兼容性需要自行调整。
+2. **Mao 示例模型**：Mao 包含在上一步的 SDK 里，不需要另外下载，直接复制到 `Ratuber/assets/Mao/`：
+
+   ```powershell
+   New-Item -ItemType Directory -Force Ratuber\assets | Out-Null
+   Copy-Item -Recurse CubismSdkForNative-5-r.5\Samples\Resources\Mao Ratuber\assets\Mao
+   ```
+
+3. **CosyVoice 和 CosyVoice2-0.5B 模型**
+   - 项目地址：<https://github.com/FunAudioLLM/CosyVoice>。在 `Ratuber/assets/` 下克隆（注意要带 `--recursive` 以拉取子模块）：
+
+     ```powershell
+     cd Ratuber\assets
+     git clone --recursive https://github.com/FunAudioLLM/CosyVoice.git CosyVoice
+     ```
+
+     克隆完成后，`Ratuber/assets/CosyVoice/` 就是 CosyVoice 项目的根目录。如果子模块因网络失败，进入该目录运行 `git submodule update --init --recursive` 重试。
+   - Python 环境（conda、依赖安装）请按 CosyVoice 官方 README 的说明创建，本项目使用名为 `cosyvoice` 的环境。
+   - 模型：在 `Ratuber/assets/CosyVoice/` 目录下，通过 ModelScope 下载 `CosyVoice2-0.5B`：
+
+     ```powershell
+     pip install modelscope
+     python -c "from modelscope import snapshot_download; snapshot_download('iic/CosyVoice2-0.5B', local_dir='pretrained_models/CosyVoice2-0.5B')"
+     ```
+
+     模型最终应位于 `Ratuber/assets/CosyVoice/pretrained_models/CosyVoice2-0.5B/`。
 4. **自定义音色**：在 `Ratuber/assets/CosyVoice/` 目录下放两个文件：
    - `voice.wav`：参考音频；
    - `test.txt`：参考音频对应的文字内容。
@@ -95,9 +122,36 @@ This project is for learning and personal interest only and is not intended for 
 
 The repository contains source code only. Before running, prepare the following:
 
-1. **Live2D Cubism SDK for Native**: download `CubismSdkForNative-5-r.5` from the Live2D website and extract it into the repository root (next to `CMakeLists.txt`).
-2. **Mao sample model**: download the Mao sample model from the Live2D website and place it in `Ratuber/assets/Mao/`.
-3. **CosyVoice**: put the CosyVoice project in `Ratuber/assets/CosyVoice/` and download the `CosyVoice2-0.5B` pretrained model into `Ratuber/assets/CosyVoice/pretrained_models/CosyVoice2-0.5B/`.
+All paths below are relative to the repository root (the directory containing `CMakeLists.txt`).
+
+1. **Live2D Cubism SDK for Native**
+   - Download: <https://www.live2d.com/en/sdk/download/native/> (you must read and agree to Live2D's license agreements before downloading).
+   - This project was developed against version `5-r.5`. Extract the downloaded archive into the repository root so the folder is named `CubismSdkForNative-5-r.5`, next to `CMakeLists.txt`. The website offers the latest version; if yours differs, the folder name and compatibility may need adjusting.
+2. **Mao sample model**: Mao ships inside the SDK from the previous step, so there is nothing extra to download. Copy it to `Ratuber/assets/Mao/`:
+
+   ```powershell
+   New-Item -ItemType Directory -Force Ratuber\assets | Out-Null
+   Copy-Item -Recurse CubismSdkForNative-5-r.5\Samples\Resources\Mao Ratuber\assets\Mao
+   ```
+
+3. **CosyVoice and the CosyVoice2-0.5B model**
+   - Project: <https://github.com/FunAudioLLM/CosyVoice>. Clone it inside `Ratuber/assets/` (use `--recursive` to fetch the submodules):
+
+     ```powershell
+     cd Ratuber\assets
+     git clone --recursive https://github.com/FunAudioLLM/CosyVoice.git CosyVoice
+     ```
+
+     Afterwards `Ratuber/assets/CosyVoice/` is the root of the CosyVoice project. If the submodules fail because of network problems, run `git submodule update --init --recursive` in that folder to retry.
+   - Create the Python environment (conda, dependencies) by following the official CosyVoice README; this project uses an environment named `cosyvoice`.
+   - Model: from inside `Ratuber/assets/CosyVoice/`, download `CosyVoice2-0.5B` through ModelScope:
+
+     ```powershell
+     pip install modelscope
+     python -c "from modelscope import snapshot_download; snapshot_download('iic/CosyVoice2-0.5B', local_dir='pretrained_models/CosyVoice2-0.5B')"
+     ```
+
+     The model should end up in `Ratuber/assets/CosyVoice/pretrained_models/CosyVoice2-0.5B/`.
 4. **Custom voice**: place two files in `Ratuber/assets/CosyVoice/`:
    - `voice.wav`: the reference audio;
    - `test.txt`: the transcript of the reference audio.
