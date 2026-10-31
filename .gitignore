@@ -1,0 +1,38 @@
+﻿# IDE / 编译产物
+.vs/
+.vscode/
+out/
+build/
+[Dd]ebug/
+[Rr]elease/
+x64/
+vcpkg_installed/
+*.ipch
+*.pdb
+*.obj
+*.ilk
+*.exp
+*.tlog
+*.lastbuildstate
+__pycache__/
+*.pyc
+
+# 模型和大文件
+Ratuber/assets/CosyVoice/
+Ratuber/assets/WhisperLargeV3Turbo/
+*.pt
+*.onnx
+*.safetensors
+*.zip
+*.db
+*.sqlite
+
+# Live2D 官方 SDK（许可限制，不随仓库分发）
+CubismSdkForNative-*/
+
+# 运行时临时文件
+Ratuber/tempvoice/
+*.log
+
+build_vs*/
+Ratuber/assets/

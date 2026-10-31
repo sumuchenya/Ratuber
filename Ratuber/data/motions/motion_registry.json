@@ -1,0 +1,60 @@
+{
+  "motions": [
+    {
+      "id": "mtn_01",
+      "file": "motions/mtn_01.motion3.json",
+      "group": "Idle",
+      "name": "待机",
+      "description": "角色进行轻微的头部和身体摇摆，并伴随自然眨眼和轻微的手臂动作，同时会出现墨滴效果。整体动作幅度较小，适合作为角色平时无人交互时的默认待机动作。"
+    },
+    {
+      "id": "sample_01",
+      "file": "motions/sample_01.motion3.json",
+      "group": "Idle",
+      "name": "魔法待机",
+      "description": "与普通待机动作类似，角色进行轻微的头部和身体摇摆，并伴随自然眨眼，同时加入水晶球相关的移动和颜色变化效果。适合作为默认待机动作的备用或轮换动作。"
+    },
+    {
+      "id": "mtn_02",
+      "file": "motions/mtn_02.motion3.json",
+      "group": "TapBody",
+      "name": "低头回应",
+      "description": "角色明显低下头，身体和双肩随之下沉，同时双臂对称运动并将双手收于身前，整体动作具有礼貌和回应的感觉。适合用于打招呼、感谢、道歉、收到信息或表示确认等场景。"
+    },
+    {
+      "id": "mtn_03",
+      "file": "motions/mtn_03.motion3.json",
+      "group": "TapBody",
+      "name": "摇摆挥杖",
+      "description": "角色进行明显的左右摇摆和身体倾斜，同时双臂配合运动，并伴随魔杖旋转效果。整体动作轻松、活泼且具有表现力，适合用于轻松聊天、开心回应、卖萌、应援或活跃气氛。"
+    },
+    {
+      "id": "mtn_04",
+      "file": "motions/mtn_04.motion3.json",
+      "group": "TapBody",
+      "name": "帽子动作",
+      "description": "角色进行幅度较大的头部和身体动作，同时一侧肩膀和手臂明显运动，并伴随帽子形态变化。整体动作比较活泼和调皮，适合用于疑惑、惊讶、调皮回应、得意或与帽子相关的互动表现。"
+    },
+    {
+      "id": "special_01",
+      "file": "motions/special_01.motion3.json",
+      "group": "TapBody",
+      "name": "魔法比心",
+      "description": "角色通过魔杖绘制爱心并产生心形、光环和治愈光等魔法效果，同时配合明显的表情变化。整体表现具有温柔、治愈和魔法感，适合用于安慰、感谢、表达喜欢、庆祝或重要的正面互动。"
+    },
+    {
+      "id": "special_02",
+      "file": "motions/special_02.motion3.json",
+      "group": "TapBody",
+      "name": "魔法翻车",
+      "description": "角色进行一段魔法施法过程，随后出现彩虹魔法、蓄力、爆炸和烟雾等强烈特效，最后以脸上出现墨渍、皱眉、嘴角下压等效果收尾，整体表现为魔法失败后的搞笑翻车。适合用于搞笑、整活、失败、自嘲或意外状况。"
+    },
+    {
+      "id": "special_03",
+      "file": "motions/special_03.motion3.json",
+      "group": "TapBody",
+      "name": "变兔子魔术",
+      "description": "角色进行一段魔术表演，使兔子消失并重新出现，同时伴随兔子位置、大小、耳朵以及光环等效果变化，最后以开心的眼睛表情收尾。适合用于惊喜、彩蛋、庆祝、玩梗、魔术表演或成功完成某件事情。"
+    }
+  ]
+}

@@ -1,0 +1,776 @@
+{
+  "version": 2,
+  "description": "Ratuber Behavior Registry. This file describes the behaviors available to the AI. The AI should select behaviors by semantic meaning rather than directly controlling Live2D parameters.",
+  "rules": {
+    "selection": "Choose behaviors according to the semantic meaning of the conversation.",
+    "preferred_level": "CombinationBehavior should normally be preferred for emotional or conversational responses.",
+    "atom_usage": "AtomBehavior can be used when a simple single motion or expression is sufficient.",
+    "levels": [
+      "compose",
+      "preset",
+      "atom"
+    ],
+    "level_note": "compose: randomly pick a motion and an expression from emotion_pools (expression must be in the motion's compatible_expressions). preset: use the CombinationBehavior with the same id as the emotion. atom: send only a single expression (or motion). Fall back in this order when time is tight or composition fails.",
+    "compose_rules": [
+      "Only pair a motion with an expression listed in that motion's compatible_expressions.",
+      "If an emotion pool has no motions, send the expression only.",
+      "Avoid picking the same result twice in a row for the same emotion when other choices exist."
+    ],
+    "automatic_systems": [
+      "BlinkManager",
+      "MouthOpenManager",
+      "Breath",
+      "NaturalHeadMovement",
+      "NaturalBodyMovement"
+    ],
+    "automatic_system_note": "Automatic systems do not need to be explicitly selected by the AI."
+  },
+
+  "behaviors": {
+
+    "motion": [
+      {
+        "id": "motion_idle",
+        "type": "MotionAtom",
+        "name": "普通待机",
+        "description": "角色进行轻微的头部和身体摇摆，并伴随自然眨眼和轻微的手臂动作，同时会出现墨滴效果。整体动作幅度较小，适合作为角色平时无人交互时的默认待机动作。",
+        "emotion": [
+          "neutral",
+          "calm",
+          "idle"
+        ],
+        "suitable_for": [
+          "等待",
+          "普通待机",
+          "没有明显情绪"
+        ],
+        "compatible_expressions": [
+          "expression_neutral",
+          "expression_smile"
+        ]
+      },
+      {
+        "id": "motion_magic_idle",
+        "type": "MotionAtom",
+        "name": "魔法待机",
+        "description": "角色进行轻微的头部和身体摇摆，并加入水晶球相关的移动和颜色变化效果。整体动作轻柔，适合作为普通待机动作的魔法风格替代。",
+        "emotion": [
+          "neutral",
+          "calm",
+          "magical"
+        ],
+        "suitable_for": [
+          "魔法氛围",
+          "特殊待机",
+          "等待"
+        ],
+        "compatible_expressions": [
+          "expression_neutral",
+          "expression_smile"
+        ]
+      },
+      {
+        "id": "motion_bow",
+        "type": "MotionAtom",
+        "name": "低头回应",
+        "description": "角色明显低下头，身体和双肩随之下沉，同时双臂对称运动并将双手收于身前，整体动作具有礼貌和回应的感觉。",
+        "emotion": [
+          "polite",
+          "respectful",
+          "friendly"
+        ],
+        "suitable_for": [
+          "打招呼",
+          "感谢",
+          "道歉",
+          "确认",
+          "收到信息",
+          "礼貌回应"
+        ],
+        "compatible_expressions": [
+          "expression_smile",
+          "expression_neutral",
+          "expression_shy",
+          "expression_sad"
+        ]
+      },
+      {
+        "id": "motion_wand_swing",
+        "type": "MotionAtom",
+        "name": "摇摆挥杖",
+        "description": "角色进行明显的左右摇摆和身体倾斜，同时双臂配合运动，并伴随魔杖旋转效果。整体动作轻松、活泼且具有表现力。",
+        "emotion": [
+          "happy",
+          "playful",
+          "excited",
+          "cheerful"
+        ],
+        "suitable_for": [
+          "开心",
+          "轻松聊天",
+          "卖萌",
+          "应援",
+          "活跃气氛"
+        ],
+        "compatible_expressions": [
+          "expression_smile",
+          "expression_surprised"
+        ]
+      },
+      {
+        "id": "motion_hat",
+        "type": "MotionAtom",
+        "name": "帽子动作",
+        "description": "角色进行幅度较大的头部和身体动作，同时一侧肩膀和手臂明显运动，并伴随帽子形态变化。整体动作比较活泼和调皮。",
+        "emotion": [
+          "playful",
+          "surprised",
+          "confused",
+          "proud"
+        ],
+        "suitable_for": [
+          "疑惑",
+          "惊讶",
+          "调皮",
+          "得意",
+          "活泼回应"
+        ],
+        "compatible_expressions": [
+          "expression_smile",
+          "expression_surprised",
+          "expression_shy",
+          "expression_embarrassed",
+          "expression_angry",
+          "expression_neutral"
+        ]
+      },
+      {
+        "id": "motion_heart_magic",
+        "type": "MotionAtom",
+        "name": "魔法比心",
+        "description": "角色通过魔杖绘制爱心并产生心形、光环和治愈光等魔法效果，同时配合明显的表情变化。整体表现温柔、治愈并具有魔法感。",
+        "emotion": [
+          "warm",
+          "kind",
+          "comforting",
+          "positive"
+        ],
+        "suitable_for": [
+          "安慰",
+          "感谢",
+          "鼓励",
+          "庆祝",
+          "温柔回应"
+        ],
+        "compatible_expressions": [
+          "expression_smile",
+          "expression_shy"
+        ]
+      },
+      {
+        "id": "motion_magic_fail",
+        "type": "MotionAtom",
+        "name": "魔法翻车",
+        "description": "角色进行一段魔法施法过程，随后出现彩虹魔法、蓄力、爆炸和烟雾等强烈特效，最后以脸上出现墨渍、皱眉、嘴角下压等效果收尾，整体表现为魔法失败后的搞笑翻车。",
+        "emotion": [
+          "funny",
+          "embarrassed",
+          "failed",
+          "self_mocking"
+        ],
+        "suitable_for": [
+          "搞笑",
+          "失败",
+          "自嘲",
+          "意外",
+          "整活"
+        ],
+        "compatible_expressions": [
+          "expression_embarrassed",
+          "expression_shy"
+        ]
+      },
+      {
+        "id": "motion_rabbit_magic",
+        "type": "MotionAtom",
+        "name": "变兔子魔术",
+        "description": "角色进行一段魔术表演，使兔子消失并重新出现，同时伴随兔子位置、大小、耳朵以及光环等效果变化，最后以开心的眼睛表情收尾。",
+        "emotion": [
+          "happy",
+          "surprised",
+          "playful",
+          "magical"
+        ],
+        "suitable_for": [
+          "惊喜",
+          "彩蛋",
+          "庆祝",
+          "玩梗",
+          "魔术表演",
+          "成功"
+        ],
+        "compatible_expressions": [
+          "expression_smile",
+          "expression_surprised"
+        ]
+      }
+    ],
+
+    "expression": [
+      {
+        "id": "expression_neutral",
+        "type": "ExpressionAtom",
+        "name": "中性",
+        "description": "自然、平静的默认表情，没有明显的情绪表现。",
+        "emotion": [
+          "neutral",
+          "calm"
+        ],
+        "suitable_for": [
+          "普通聊天",
+          "等待",
+          "没有明确情绪",
+          "恢复默认状态"
+        ]
+      },
+      {
+        "id": "expression_smile",
+        "type": "ExpressionAtom",
+        "name": "微笑",
+        "description": "闭合并带有笑意的眼睛，表现轻松、开心、愉快或温和的情绪。",
+        "emotion": [
+          "happy",
+          "friendly",
+          "positive",
+          "warm"
+        ],
+        "suitable_for": [
+          "开心",
+          "赞同",
+          "友好回应",
+          "轻松聊天",
+          "感谢"
+        ]
+      },
+      {
+        "id": "expression_close_eyes",
+        "type": "ExpressionAtom",
+        "name": "闭眼",
+        "description": "双眼闭合的表情，本身不代表特定情绪，可以作为闭眼状态使用。",
+        "emotion": [
+          "neutral"
+        ],
+        "suitable_for": [
+          "闭眼",
+          "思考",
+          "休息",
+          "特殊动作组合"
+        ],
+        "note": "通常不需要AI主动调用，因为眨眼由BlinkManager自动处理。"
+      },
+      {
+        "id": "expression_surprised",
+        "type": "ExpressionAtom",
+        "name": "惊讶",
+        "description": "双眼睁大并带有明显的眼部效果，表现惊讶、震惊、兴奋或突然受到刺激时的反应。",
+        "emotion": [
+          "surprised",
+          "shocked",
+          "excited"
+        ],
+        "suitable_for": [
+          "惊讶",
+          "震惊",
+          "突然发现",
+          "意外消息"
+        ]
+      },
+      {
+        "id": "expression_sad",
+        "type": "ExpressionAtom",
+        "name": "悲伤",
+        "description": "眉毛和嘴部呈现明显的低落形态，表现悲伤、难过、失落或沮丧。",
+        "emotion": [
+          "sad",
+          "disappointed",
+          "upset"
+        ],
+        "suitable_for": [
+          "难过",
+          "失落",
+          "沮丧",
+          "遗憾"
+        ]
+      },
+      {
+        "id": "expression_shy",
+        "type": "ExpressionAtom",
+        "name": "害羞",
+        "description": "脸颊出现明显的红晕效果，主要表现害羞、尴尬或不好意思。",
+        "emotion": [
+          "shy",
+          "embarrassed",
+          "bashful"
+        ],
+        "suitable_for": [
+          "害羞",
+          "不好意思",
+          "尴尬",
+          "被夸奖"
+        ],
+        "note": "更适合作为情绪修饰效果，与其他表情组合使用。"
+      },
+      {
+        "id": "expression_embarrassed",
+        "type": "ExpressionAtom",
+        "name": "难为情",
+        "description": "眼睛、眼球、眉毛和嘴部发生变化，表现难为情、委屈、尴尬或不知所措。",
+        "emotion": [
+          "embarrassed",
+          "awkward",
+          "confused",
+          "helpless"
+        ],
+        "suitable_for": [
+          "尴尬",
+          "做错事情",
+          "不知道怎么办",
+          "搞砸事情"
+        ]
+      },
+      {
+        "id": "expression_angry",
+        "type": "ExpressionAtom",
+        "name": "生气",
+        "description": "眼睛和嘴部呈现明显的攻击性形态，表现生气、不满、恼火或愤怒。",
+        "emotion": [
+          "angry",
+          "annoyed",
+          "dissatisfied"
+        ],
+        "suitable_for": [
+          "生气",
+          "不满",
+          "恼火",
+          "强烈反对"
+        ]
+      }
+    ],
+
+    "combination": [
+      {
+        "id": "greeting",
+        "type": "CombinationBehavior",
+        "name": "打招呼",
+        "description": "角色礼貌地低头回应，同时带有温和的微笑。适合开始聊天、欢迎用户或进行友好的回应。",
+        "emotion": [
+          "friendly",
+          "polite",
+          "happy"
+        ],
+        "suitable_for": [
+          "你好",
+          "早上好",
+          "晚上好",
+          "欢迎回来",
+          "开始聊天",
+          "重新见面"
+        ],
+        "components": [
+          "motion_bow",
+          "expression_smile"
+        ]
+      },
+      {
+        "id": "happy",
+        "type": "CombinationBehavior",
+        "name": "开心",
+        "description": "角色开心地摇摆并挥动魔杖，同时露出明显的笑意。整体表现活泼、积极和有精神。",
+        "emotion": [
+          "happy",
+          "excited",
+          "cheerful"
+        ],
+        "suitable_for": [
+          "开心",
+          "兴奋",
+          "听到好消息",
+          "得到表扬",
+          "积极回应"
+        ],
+        "components": [
+          "motion_wand_swing",
+          "expression_smile"
+        ]
+      },
+      {
+        "id": "shy",
+        "type": "CombinationBehavior",
+        "name": "害羞",
+        "description": "角色进行活泼的帽子动作，同时带有微笑和脸颊红晕，表现害羞、不好意思或被夸奖后的反应。",
+        "emotion": [
+          "shy",
+          "embarrassed",
+          "bashful"
+        ],
+        "suitable_for": [
+          "害羞",
+          "不好意思",
+          "被夸奖",
+          "受到友好调侃"
+        ],
+        "components": [
+          "motion_hat",
+          "expression_smile",
+          "expression_shy"
+        ]
+      },
+      {
+        "id": "surprised",
+        "type": "CombinationBehavior",
+        "name": "惊讶",
+        "description": "角色做出明显的帽子动作，同时睁大眼睛表现惊讶。适合对突然出现的信息或意外情况做出反应。",
+        "emotion": [
+          "surprised",
+          "shocked",
+          "excited"
+        ],
+        "suitable_for": [
+          "惊讶",
+          "震惊",
+          "意外",
+          "突然发现"
+        ],
+        "components": [
+          "motion_hat",
+          "expression_surprised"
+        ]
+      },
+      {
+        "id": "sad",
+        "type": "CombinationBehavior",
+        "name": "悲伤",
+        "description": "角色使用低落的悲伤表情，表现难过、失落或沮丧。目前主要依靠表情表现情绪。",
+        "emotion": [
+          "sad",
+          "disappointed",
+          "upset"
+        ],
+        "suitable_for": [
+          "难过",
+          "失落",
+          "遗憾",
+          "沮丧"
+        ],
+        "components": [
+          "expression_sad"
+        ]
+      },
+      {
+        "id": "angry",
+        "type": "CombinationBehavior",
+        "name": "生气",
+        "description": "角色进行活泼但明显的身体动作，同时使用生气表情表现不满或恼火。",
+        "emotion": [
+          "angry",
+          "annoyed",
+          "dissatisfied"
+        ],
+        "suitable_for": [
+          "生气",
+          "不满",
+          "恼火",
+          "吐槽"
+        ],
+        "components": [
+          "motion_hat",
+          "expression_angry"
+        ]
+      },
+      {
+        "id": "comfort",
+        "type": "CombinationBehavior",
+        "name": "安慰",
+        "description": "角色使用魔法比心和温和微笑，表现温柔、治愈和关心。适合用户难过、沮丧或需要鼓励时使用。",
+        "emotion": [
+          "warm",
+          "comforting",
+          "kind",
+          "supportive"
+        ],
+        "suitable_for": [
+          "安慰",
+          "鼓励",
+          "用户难过",
+          "用户失落",
+          "温柔回应"
+        ],
+        "components": [
+          "motion_heart_magic",
+          "expression_smile"
+        ]
+      },
+      {
+        "id": "thank_you",
+        "type": "CombinationBehavior",
+        "name": "感谢",
+        "description": "角色使用温柔的魔法比心动作并露出微笑，用于表达感谢、感激和友好的正面回应。",
+        "emotion": [
+          "grateful",
+          "happy",
+          "warm"
+        ],
+        "suitable_for": [
+          "谢谢",
+          "感谢",
+          "收到帮助",
+          "用户帮忙",
+          "表达感激"
+        ],
+        "components": [
+          "motion_heart_magic",
+          "expression_smile"
+        ]
+      },
+      {
+        "id": "celebrate",
+        "type": "CombinationBehavior",
+        "name": "庆祝",
+        "description": "角色进行变兔子魔术并配合开心的表情，表现惊喜、成功和庆祝的感觉。",
+        "emotion": [
+          "happy",
+          "excited",
+          "celebratory",
+          "surprised"
+        ],
+        "suitable_for": [
+          "庆祝",
+          "成功",
+          "完成任务",
+          "好消息",
+          "达成目标",
+          "惊喜"
+        ],
+        "components": [
+          "motion_rabbit_magic",
+          "expression_smile"
+        ]
+      },
+      {
+        "id": "funny_fail",
+        "type": "CombinationBehavior",
+        "name": "搞笑翻车",
+        "description": "角色进行魔法翻车动作，并使用难为情表情表现失败后的尴尬和搞笑效果。适合失败、自嘲、意外和轻松的搞笑场景。",
+        "emotion": [
+          "funny",
+          "embarrassed",
+          "failed",
+          "self_mocking"
+        ],
+        "suitable_for": [
+          "失败",
+          "搞笑",
+          "自嘲",
+          "搞砸",
+          "意外翻车",
+          "整活"
+        ],
+        "components": [
+          "motion_magic_fail",
+          "expression_embarrassed"
+        ]
+      }
+    ]
+  },
+
+  "emotion_pools": {
+    "_note": "每个情绪（key 与 combination 的 id 一致）对应 compose 级别可随机抽取的 motion 和 expression 候选池，weight 越大越容易被抽中。motions 为空表示只发表情。抽到的 motion+expression 必须满足 motion 的 compatible_expressions，不满足的搭配会被剔除。",
+    "greeting": {
+      "motions": [
+        {
+          "id": "motion_bow",
+          "weight": 3
+        },
+        {
+          "id": "motion_wand_swing",
+          "weight": 1
+        }
+      ],
+      "expressions": [
+        {
+          "id": "expression_smile",
+          "weight": 1
+        }
+      ]
+    },
+    "happy": {
+      "motions": [
+        {
+          "id": "motion_wand_swing",
+          "weight": 3
+        },
+        {
+          "id": "motion_heart_magic",
+          "weight": 1
+        },
+        {
+          "id": "motion_rabbit_magic",
+          "weight": 1
+        }
+      ],
+      "expressions": [
+        {
+          "id": "expression_smile",
+          "weight": 3
+        },
+        {
+          "id": "expression_surprised",
+          "weight": 1
+        }
+      ]
+    },
+    "shy": {
+      "motions": [
+        {
+          "id": "motion_hat",
+          "weight": 1
+        }
+      ],
+      "expressions": [
+        {
+          "id": "expression_shy",
+          "weight": 3
+        },
+        {
+          "id": "expression_smile",
+          "weight": 1
+        }
+      ]
+    },
+    "surprised": {
+      "motions": [
+        {
+          "id": "motion_hat",
+          "weight": 1
+        }
+      ],
+      "expressions": [
+        {
+          "id": "expression_surprised",
+          "weight": 1
+        }
+      ]
+    },
+    "sad": {
+      "motions": [],
+      "expressions": [
+        {
+          "id": "expression_sad",
+          "weight": 1
+        }
+      ]
+    },
+    "angry": {
+      "motions": [
+        {
+          "id": "motion_hat",
+          "weight": 1
+        }
+      ],
+      "expressions": [
+        {
+          "id": "expression_angry",
+          "weight": 1
+        }
+      ]
+    },
+    "comfort": {
+      "motions": [
+        {
+          "id": "motion_heart_magic",
+          "weight": 3
+        },
+        {
+          "id": "motion_bow",
+          "weight": 1
+        }
+      ],
+      "expressions": [
+        {
+          "id": "expression_smile",
+          "weight": 1
+        }
+      ]
+    },
+    "thank_you": {
+      "motions": [
+        {
+          "id": "motion_heart_magic",
+          "weight": 2
+        },
+        {
+          "id": "motion_bow",
+          "weight": 2
+        }
+      ],
+      "expressions": [
+        {
+          "id": "expression_smile",
+          "weight": 3
+        },
+        {
+          "id": "expression_shy",
+          "weight": 1
+        }
+      ]
+    },
+    "celebrate": {
+      "motions": [
+        {
+          "id": "motion_rabbit_magic",
+          "weight": 3
+        },
+        {
+          "id": "motion_wand_swing",
+          "weight": 2
+        },
+        {
+          "id": "motion_heart_magic",
+          "weight": 1
+        }
+      ],
+      "expressions": [
+        {
+          "id": "expression_smile",
+          "weight": 3
+        },
+        {
+          "id": "expression_surprised",
+          "weight": 1
+        }
+      ]
+    },
+    "funny_fail": {
+      "motions": [
+        {
+          "id": "motion_magic_fail",
+          "weight": 3
+        },
+        {
+          "id": "motion_hat",
+          "weight": 1
+        }
+      ],
+      "expressions": [
+        {
+          "id": "expression_embarrassed",
+          "weight": 3
+        },
+        {
+          "id": "expression_shy",
+          "weight": 1
+        }
+      ]
+    }
+  }
+}

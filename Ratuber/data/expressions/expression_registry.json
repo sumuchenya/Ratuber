@@ -1,0 +1,52 @@
+{
+	"expressions": [
+		{
+			"id": "exp_01",
+			"file": "expressions/exp_01.exp3.json",
+			"name": "中性",
+			"description": "自然、平静的默认表情，没有明显的情绪表现。适合普通聊天、等待或没有明确情绪时使用。"
+		},
+		{
+			"id": "exp_02",
+			"file": "expressions/exp_02.exp3.json",
+			"name": "微笑",
+			"description": "闭合并带有笑意的眼睛，表现轻松、开心、愉快或温和的情绪。适合表达开心、赞同、友好或轻松回应。"
+		},
+		{
+			"id": "exp_03",
+			"file": "expressions/exp_03.exp3.json",
+			"name": "闭眼",
+			"description": "双眼闭合的表情。主要表现闭眼状态，本身不代表特定情绪，可以用于眨眼、思考、休息或其他动作组合。"
+		},
+		{
+			"id": "exp_04",
+			"file": "expressions/exp_04.exp3.json",
+			"name": "惊讶",
+			"description": "双眼睁大并带有明显的眼部效果，表现惊讶、震惊、兴奋或突然受到刺激时的反应。"
+		},
+		{
+			"id": "exp_05",
+			"file": "expressions/exp_05.exp3.json",
+			"name": "悲伤",
+			"description": "眉毛和嘴部呈现明显的低落形态，表现悲伤、难过、失落或沮丧的情绪。"
+		},
+		{
+			"id": "exp_06",
+			"file": "expressions/exp_06.exp3.json",
+			"name": "害羞",
+			"description": "脸颊出现明显的红晕效果，主要用于表现害羞、尴尬或不好意思。它更适合作为情绪修饰效果，与其他表情组合使用。"
+		},
+		{
+			"id": "exp_07",
+			"file": "expressions/exp_07.exp3.json",
+			"name": "难为情",
+			"description": "眼睛睁大、眼球形态和眉毛发生变化，同时嘴部呈现低落形态，表现难为情、委屈、尴尬或不知所措。"
+		},
+		{
+			"id": "exp_08",
+			"file": "expressions/exp_08.exp3.json",
+			"name": "生气",
+			"description": "眼睛和嘴部呈现明显的攻击性形态，包含愤怒相关的嘴部参数，表现生气、不满、恼火或愤怒。"
+		}
+	]
+}
